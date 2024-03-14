@@ -33,8 +33,8 @@ dependencies:
     specifier: ^18.2.0
     version: 18.2.0(react@18.2.0)
   react-pro-sidebar:
-    specifier: ^1.1.0
-    version: 1.1.0(@types/react@18.2.64)(react-dom@18.2.0)(react@18.2.0)
+    specifier: 0.7.1
+    version: 0.7.1(react-dom@18.2.0)(react@18.2.0)
   react-router-dom:
     specifier: ^6.22.3
     version: 6.22.3(react-dom@18.2.0)(react@18.2.0)
@@ -2569,20 +2569,18 @@ packages:
     resolution: {integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==}
     dev: false
 
-  /react-pro-sidebar@1.1.0(@types/react@18.2.64)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-rdRJ4PeMsqWq9n69AmF6et6qCbhCF1KEBgjAH8vIiLxE1k5fMxtRYo0k4asxW8qpIH6sqahiMxrxVVoObv8orQ==}
+  /react-pro-sidebar@0.7.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-Iy1X8ce4t5Vqz4CsyzjwokGUE3/IObgmYzS0ins7/2eWKle0SMUPaWdgMKFIVjtVrMr5vmjPbRicq8FxnVaf8A==}
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
     dependencies:
-      '@emotion/react': 11.11.4(@types/react@18.2.64)(react@18.2.0)
-      '@emotion/styled': 11.11.0(@emotion/react@11.11.4)(@types/react@18.2.64)(react@18.2.0)
       '@popperjs/core': 2.11.8
       classnames: 2.5.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-    transitivePeerDependencies:
-      - '@types/react'
+      react-slidedown: 2.4.7(react-dom@18.2.0)(react@18.2.0)
+      resize-observer-polyfill: 1.5.1
     dev: false
 
   /react-refresh@0.14.0:
@@ -2613,6 +2611,17 @@ packages:
       react: 18.2.0
     dev: false
 
+  /react-slidedown@2.4.7(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-HGDfrqo70r1WVE0DwrySPdCT27/2wcZaJYh5kOnmuPSCtjDDJrNkDdn4Ep/cma2VVfwupeAGhbc2pbrGThU6VQ==}
+    peerDependencies:
+      react: ^16.3.0 || 17
+      react-dom: ^16.3.0 || 17
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      tslib: 2.6.2
+    dev: false
+
   /react-transition-group@4.4.5(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-pZcd1MCJoiKiBR2NRxeCRg13uCXbydPnmB4EOeRrY7480qNWO8IIgQG6zlDkm6uRMsURXPuKq0GWtiM59a5Q6g==}
     peerDependencies:
@@ -2636,6 +2645,10 @@ packages:
 
   /regenerator-runtime@0.14.1:
     resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
+    dev: false
+
+  /resize-observer-polyfill@1.5.1:
+    resolution: {integrity: sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==}
     dev: false
 
   /resolve-from@4.0.0:

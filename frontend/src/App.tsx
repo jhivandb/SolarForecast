@@ -1,6 +1,11 @@
 // import "./App.css";
+import Sidebar from "./scenes/global/Sidebar";
+import Topbar from "./scenes/global/Topbar";
+import Dashboard from "./scenes/dashboard";
 import { ColorModeContext, useMode } from "./theme";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { Box, CssBaseline, ThemeProvider } from "@mui/material";
+import { Route, Routes } from "react-router-dom";
+// import Line from "./scenes/line";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -9,9 +14,16 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div className="app">
-          <main className="content"></main>
-        </div>
+        <Box className="app" sx={{ display: "flex" }}>
+          <Sidebar />
+          <main className="content">
+            <Topbar />
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              {/* <Route path="/forecast" element={<Line />} /> */}
+            </Routes>
+          </main>
+        </Box>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );
