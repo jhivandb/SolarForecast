@@ -1,14 +1,49 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LineChart from "../../components/LineChart";
-import { Box, FormControl, InputLabel, LinearProgress, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  LinearProgress,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
+import {
+  ChartData,
+  InputDataPoint,
+  callRForecast,
+  convertRToNivo,
+  parseAndConvertJsonData,
+} from "../../data/datautils";
+import { inputData } from "../../data/mockSolarData";
+import { mockLineData } from "../../data/mockData";
+import { stringify } from "querystring";
 
 const Navbar = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(true);
-  const [model, setModel] = useState<string>("Test");
-
+  const [model, setModel] = useState<string>("wensemble");
+  const [data, setData] = useState<ChartData[]>([]);
   const handleModelChange = (event: SelectChangeEvent) => {
     setModel(event.target.value);
   };
+
+  useEffect(() => {
+    const getData = async () => {
+      const response = await fetch(`http://146.190.201.185:8002/solar/48`);
+
+      if (!response.ok) {
+        throw new Error("Couldn't fetch forecast");
+      }
+      const data = await response.json();
+      setData(parseAndConvertJsonData(data));
+    };
+    //TODO GET IT THIS PROMISE WORKING
+    getData().catch((error: any) => {
+      console.log(error);
+    });
+  }, []);
 
   return (
     <>
@@ -27,10 +62,12 @@ const Navbar = () => {
               <MenuItem value={"ETS"}>ETS</MenuItem>
               <MenuItem value={"ARIMA"}>Arima</MenuItem>
               <MenuItem value={"Theta"}>Theta</MenuItem>
+              <MenuItem value={"wensemble"}>wensemble</MenuItem>
             </Select>
           </FormControl>
+          <Button>Testing </Button>
         </Box>
-        {isLoaded ? <LineChart model={model} /> : <LinearProgress color="secondary" />}
+        {isLoaded ? <LineChart model={model} data={data} /> : <LinearProgress color="secondary" />}
       </Box>
     </>
   );

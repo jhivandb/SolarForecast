@@ -49,13 +49,39 @@ export const convertRToNivo = (inputData: any) => {
   return Object.values(seriesData);
 };
 
-export const callRForecast = (horizon: number) => {
-  axios
-    .get(`http://146.190.201.185:8000/predict?Horizon=${horizon}`)
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.error("Error Fetching Forecasts:", error);
-    });
+export const callRForecast = async (horizon: number) => {
+  try {
+    const response = await axios.get(`http://146.190.201.185:8000/predict?Horizon=${horizon}`);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.error("Error Fetching Forecasts:", error);
+  }
+};
+
+export const parseAndConvertJsonData = (dataArray: any) => {
+  // Parse the JSON string into an array of objects
+
+  // Map each object in the array to a new object with the conversions applied
+  const convertedArray = dataArray.map((item: any) => ({
+    x: new Date(new Date(item.data_time)),
+    // x: formatDateTime(item.date_time),
+    y: parseInt(item.power),
+  }));
+  // Sort the converted array by date_time
+  convertedArray.sort((a, b) => a.x.getTime() - b.x.getTime());
+
+  // Return the new array with converted objects
+  return [{ id: "Real", data: convertedArray }];
+};
+
+const formatDateTime = (datestr: string) => {
+  const date = new Date(datestr);
+
+  // Extract the necessary parts
+  const hour = date.getUTCHours(); // Using getUTCHours to match GMT
+  const dateOfMonth = date.getUTCDate();
+  const month = date.getUTCMonth() + 1;
+
+  return hour;
 };

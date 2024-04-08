@@ -4,7 +4,7 @@ import Topbar from "./scenes/global/Topbar";
 import Dashboard from "./scenes/dashboard";
 import { ColorModeContext, useMode } from "./theme";
 import { Box, CssBaseline, ThemeProvider } from "@mui/material";
-import { AuthProvider, useAuthContext } from "@asgardeo/auth-react";
+import { AuthProvider, SecureApp, useAuthContext } from "@asgardeo/auth-react";
 import { Route, Routes } from "react-router-dom";
 import Unauthenticated from "./scenes/Auth";
 // import Line from "./scenes/line";
@@ -24,36 +24,32 @@ function App() {
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Box className="app" sx={{ display: "flex" }}>
-            <Sidebar />
-            <main className="content">
-              <Topbar />
-              <Routes>
-                <Route
-                  path="/"
-                  element={
-                    <ProtectedRoute>
-                      <Dashboard />
-                    </ProtectedRoute>
-                  }
-                />
-                {/* <Route path="/forecast" element={<Line />} /> */}
-              </Routes>
-            </main>
-          </Box>
+          <SecureApp fallback=<Unauthenticated />>
+            <Box className="app" sx={{ display: "flex" }}>
+              <Sidebar />
+              <main className="content">
+                <Topbar />
+                <Routes>
+                  <Route path="/" element={<Dashboard />} />
+                  {/* <Route path="/forecast" element={<Line />} /> */}
+                </Routes>
+              </main>
+            </Box>
+          </SecureApp>
         </ThemeProvider>
       </ColorModeContext.Provider>
     </AuthProvider>
   );
 }
 
-const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
-  const { state } = useAuthContext();
+// const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+//   const { state, signIn } = useAuthContext();
 
-  if (!state.isAuthenticated) {
-    return <Unauthenticated />;
-  }
-  return children;
-};
+//   if (!state.isAuthenticated) {
+//     signIn();
+//     return <Unauthenticated />;
+//   }
+//   return children;
+// };
 
 export default App;
