@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
 from flask_cors import CORS,cross_origin
 from pymongo import MongoClient
+import datetime
 app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
@@ -14,10 +15,10 @@ client = MongoClient(mongo_uri)
 db = client['solarforecast']
 collection = db['plant1']
 
-@app.route('/solar', methods=['GET'])
+@app.route('/solar/<int:records>', methods=['GET'])
 @cross_origin()
-def get_solar():
-    solar_data_point = list(collection.find({}, {'_id': 0})) 
+def get_solar(records):
+    solar_data_point = list(collection.find().sort('Hourly_DATE_TIME', -1).limit(records))
     modified_items = []
     for item in solar_data_point:
         modified_item = {
