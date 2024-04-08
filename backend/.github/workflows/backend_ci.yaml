@@ -1,0 +1,21 @@
+name: Backend Docker Image CI
+
+on:
+  push:
+    branches: ["master"]
+    paths:
+      - "Backend/**"
+  pull_request:
+    branches: ["master"]
+    paths:
+      - "Backend/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        run: |
+          cd Backend
+          docker build . --file Dockerfile --tag solar_api:$(date +%s)
