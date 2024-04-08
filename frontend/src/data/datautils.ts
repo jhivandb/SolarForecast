@@ -1,14 +1,15 @@
 import axios from "axios";
+import { tokens } from "../theme";
 
 type ThemeColor = string;
 interface DataType {
-  x: string;
+  x: Date;
   y: number;
 }
 
 export interface ChartData {
   id: string;
-  color: ThemeColor;
+  color?: ThemeColor;
   data: DataType[];
 }
 
@@ -22,32 +23,32 @@ export interface NivoSeriesPoint {
   y: number;
 }
 
-export interface NivoSeries {
-  id: string;
-  data: NivoSeriesPoint[];
-}
-
 // Initialize an empty object to hold our series data
-const seriesData: Record<string, NivoSeries> = {};
+// const seriesData: Record<string, ChartData> = {};
 
-export const convertRToNivo = (inputData: any) => {
-  inputData.forEach((point: InputDataPoint) => {
-    // For each series in a point...
-    Object.keys(point).forEach((key: string) => {
-      if (key !== "Time") {
-        // Skip the Time key
-        if (!seriesData[key]) {
-          seriesData[key] = { id: key, data: [] }; // Initialize the series if it doesn't exist
-        }
-        // Safely asserting point[key] as number because we know Time is the only non-number
-        const value = point[key] as number;
-        // Add the current point to the series
-        seriesData[key].data.push({ x: point.Time, y: value });
-      }
-    });
-  });
-  return Object.values(seriesData);
-};
+// export const convertRToNivo = (inputData: any, latestTime: Date) => {
+//   inputData.forEach((point: InputDataPoint) => {
+//     // For each series in a point...
+//     Object.keys(point).forEach((key: string) => {
+//       if (key !== "Time") {
+//         // Skip the Time key
+//         if (!seriesData[key]) {
+//           seriesData[key] = { id: key, data: [] }; // Initialize the series if it doesn't exist
+//         }
+//         // Safely asserting point[key] as number because we know Time is the only non-number
+//         const value = point[key] as number;
+//         // Add the current point to the series
+//         seriesData[key].data.push({ x: currentTime, y: value });
+//       }
+//     });
+//   });
+//   // Sort the data in each series by x value
+//   Object.values(seriesData).forEach((series) => {
+//     series.data.sort((a, b) => a.x.getTime() - b.x.getTime());
+//   });
+//   console.log(JSON.stringify(seriesData));
+//   return Object.values(seriesData);
+// };
 
 export const callRForecast = async (horizon: number) => {
   try {
@@ -60,28 +61,24 @@ export const callRForecast = async (horizon: number) => {
 };
 
 export const parseAndConvertJsonData = (dataArray: any) => {
-  // Parse the JSON string into an array of objects
-
-  // Map each object in the array to a new object with the conversions applied
   const convertedArray = dataArray.map((item: any) => ({
     x: new Date(new Date(item.data_time)),
-    // x: formatDateTime(item.date_time),
     y: parseInt(item.power),
   }));
-  // Sort the converted array by date_time
   convertedArray.sort((a, b) => a.x.getTime() - b.x.getTime());
-
-  // Return the new array with converted objects
-  return [{ id: "Real", data: convertedArray }];
+  return [{ id: "Real", color: tokens("dark").greenAccent[500], data: convertedArray }];
 };
 
-const formatDateTime = (datestr: string) => {
-  const date = new Date(datestr);
-
-  // Extract the necessary parts
-  const hour = date.getUTCHours(); // Using getUTCHours to match GMT
-  const dateOfMonth = date.getUTCDate();
-  const month = date.getUTCMonth() + 1;
-
-  return hour;
+export const parseForecast = (forecastData: any, latestTime: Date) => {
+  let startTime = new Date(latestTime.getTime());
+  const convertedArray = forecastData.map((item: any) => {
+    let currentTime = new Date(startTime.getTime() + 3600000);
+    startTime = currentTime;
+    return {
+      x: new Date(currentTime),
+      y: parseInt(item.WeightedForecast),
+    };
+  });
+  convertedArray.sort((a, b) => a.x.getTime() - b.x.getTime());
+  return { id: "Forecast", color: tokens("dark").blueAccent[500], data: convertedArray };
 };

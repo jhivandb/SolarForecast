@@ -4,12 +4,10 @@ import { tokens } from "../theme";
 import { ChartData, InputDataPoint } from "../data/datautils";
 
 type LineChartProps = {
-  isCustomLineColors: boolean;
-  isDashboard: boolean;
   model: string;
   data: ChartData[];
 };
-const LineChart = ({ isCustomLineColors = false, isDashboard = false, model = "wensemble", data }: LineChartProps) => {
+const LineChart = ({ data }: LineChartProps) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -49,19 +47,18 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false, model = "w
           },
         },
       }}
-      colors={isDashboard ? { datum: "color" } : { scheme: "nivo" }} // added
+      colors={{ datum: "color" }} // added
       margin={{ top: 50, right: 110, bottom: 50, left: 80 }}
       xScale={{
         type: "time",
         format: "%d %H:%M", // Adjusted to include hours and minutes
       }}
       xFormat="time:%m %d %H:%M" // Adjusted to include hours and minutes
-      // xScale={{ type: "point" }}
       yScale={{
         type: "linear",
         min: "auto",
         max: "auto",
-        stacked: true,
+        stacked: false,
         reverse: false,
       }}
       yFormat=" >-.2f"
@@ -69,12 +66,12 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false, model = "w
       axisTop={null}
       axisRight={null}
       axisBottom={{
-        tickValues: "every 2 hours",
+        tickValues: "every 4 hours",
         format: "%m-%d %H",
         tickSize: 0,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "Time (Hourly)", // added
+        legend: "Time (Hourly)", // added
         legendOffset: 36,
         legendPosition: "middle",
       }}
@@ -83,7 +80,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false, model = "w
         tickSize: 3,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "Solar Generation (MW/h)", // added
+        legend: "Solar Generation (MW/h)", // added
         legendOffset: -60,
         legendPosition: "middle",
       }}

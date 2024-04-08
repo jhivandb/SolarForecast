@@ -10,40 +10,46 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import {
-  ChartData,
-  InputDataPoint,
-  callRForecast,
-  convertRToNivo,
-  parseAndConvertJsonData,
-} from "../../data/datautils";
-import { inputData } from "../../data/mockSolarData";
-import { mockLineData } from "../../data/mockData";
-import { stringify } from "querystring";
+import { ChartData, convertRToNivo, parseAndConvertJsonData, parseForecast } from "../../data/datautils";
 
 const Navbar = () => {
   const [isLoaded, setIsLoaded] = useState<boolean>(true);
   const [model, setModel] = useState<string>("wensemble");
-  const [data, setData] = useState<ChartData[]>([]);
+  const [solarData, setSolarData] = useState<ChartData[]>([]);
   const handleModelChange = (event: SelectChangeEvent) => {
     setModel(event.target.value);
   };
+  // TODO Figure out how to set the date time and parse the forecast
 
   useEffect(() => {
     const getData = async () => {
-      const response = await fetch(`http://146.190.201.185:8002/solar/48`);
+      const response = await fetch(`http://146.190.201.185:8002/solar/24`);
 
       if (!response.ok) {
         throw new Error("Couldn't fetch forecast");
       }
       const data = await response.json();
-      setData(parseAndConvertJsonData(data));
+      setSolarData(parseAndConvertJsonData(data));
     };
     //TODO GET IT THIS PROMISE WORKING
     getData().catch((error: any) => {
       console.log(error);
     });
   }, []);
+  const handleForecast = async () => {
+    const response = await fetch(`http://146.190.201.185:8000/rpredict?Horizon=24`);
+    if (!response.ok) {
+      throw new Error("Couldn't fetch forecast");
+    }
+    const data = await response.json();
+    setSolarData((prevData) => {
+      const latestDate = prevData[0].data[prevData[0].data.length - 1].x;
+      const initialDate = prevData[0].data[0].x;
+      const newData = parseForecast(data, new Date(latestDate));
+      console.log([newData, ...prevData]);
+      return [prevData[0], newData];
+    });
+  };
 
   return (
     <>
@@ -65,9 +71,15 @@ const Navbar = () => {
               <MenuItem value={"wensemble"}>wensemble</MenuItem>
             </Select>
           </FormControl>
-          <Button>Testing </Button>
+          <Button variant="filled" onClick={handleForecast}>
+            Forecast{" "}
+          </Button>
         </Box>
-        {isLoaded ? <LineChart model={model} data={data} /> : <LinearProgress color="secondary" />}
+        {isLoaded ? (
+          <LineChart isCustomLineColors={true} model={model} data={solarData} />
+        ) : (
+          <LinearProgress color="secondary" />
+        )}
       </Box>
     </>
   );

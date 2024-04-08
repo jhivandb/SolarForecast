@@ -7,6 +7,7 @@ import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 type sideBarItem = {
   title: string;
@@ -87,13 +88,14 @@ const Sidebar = () => {
           {!isCollapsed && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
-                <img
+                {/* <img
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={`../../assets/react.svg`}
+                  src="AccountCircleIcon"
                   style={{ cursor: "pointer", borderRadius: "50%" }}
-                />
+                /> */}
+                <AccountCircleIcon fontSize="large" />
               </Box>
               <Box textAlign="center">
                 <Typography variant="h2" color={colors.grey[100]} fontWeight="bold" sx={{ m: "10px 0 0 0" }}>
@@ -109,7 +111,7 @@ const Sidebar = () => {
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item title="Dashboard" to="/" icon={<HomeOutlinedIcon />} selected={selected} setSelected={setSelected} />
             <Typography variant="h6" color={colors.grey[300]} sx={{ m: "15px 0 5px 20px" }}>
-              Charts
+              Plants
             </Typography>
             <Item
               title="Line Chart"
