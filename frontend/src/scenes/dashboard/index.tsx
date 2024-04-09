@@ -1,10 +1,21 @@
 import { useEffect, useState } from "react";
 import LineChart from "../../components/LineChart";
-import { Box, Button, FormControl, Slider, MenuItem, Select, SelectChangeEvent, InputLabel } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  Slider,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  InputLabel,
+  LinearProgress,
+  CircularProgress,
+} from "@mui/material";
 import { ChartData, parseAndConvertJsonData, parseForecast } from "../../data/datautils";
 
 const Navbar = () => {
-  // const [isLoaded, setIsLoaded] = useState<boolean>(true);
+  const [isLoaded, setIsLoaded] = useState<boolean>(true);
   const [model, setModel] = useState<string>("daily");
   const [solarHorizon, setSolarHorizon] = useState(24);
   const [forecastHorizon, setForecastHorizon] = useState(12);
@@ -38,6 +49,7 @@ const Navbar = () => {
   };
 
   useEffect(() => {
+    // TODO LEGEND ISN"T WORKING
     const getData = async () => {
       const response = await fetch(
         `https://3b87c7fa-a7ba-49c0-bdc3-12fe0116fce7-dev.e1-us-east-azure.choreoapis.dev/molw/default/v1.0/${solarHorizon}`
@@ -54,6 +66,7 @@ const Navbar = () => {
     });
   }, [solarHorizon]);
   const handleForecast = async () => {
+    setIsLoaded(false);
     let query = `https://3b87c7fa-a7ba-49c0-bdc3-12fe0116fce7-dev.e1-us-east-azure.choreoapis.dev/molw/forecast/v1.0?Horizon=${forecastHorizon}`;
     const response = await fetch(query);
     console.log(query);
@@ -64,7 +77,7 @@ const Navbar = () => {
     setSolarData((prevData) => {
       const latestDate = prevData[0].data[prevData[0].data.length - 1].x;
       const newData = parseForecast(data, new Date(latestDate));
-      console.log([newData, ...prevData]);
+      setIsLoaded(true);
       return [prevData[0], newData];
     });
   };
@@ -119,11 +132,13 @@ const Navbar = () => {
             </Button>
           </Box>
         </Box>
-        {/* {isLoaded ? ( */}
-        <LineChart xlegend={xlegend} model={model} data={solarData} />
-        {/* ) : ( */}
-        {/* <LinearProgress color="secondary" /> */}
-        {/* )} */}
+        {isLoaded ? (
+          <LineChart xlegend={xlegend} model={model} data={solarData} />
+        ) : (
+          <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "60vh" }}>
+            <CircularProgress size="5rem" color="secondary" />
+          </Box>
+        )}
       </Box>
     </>
   );

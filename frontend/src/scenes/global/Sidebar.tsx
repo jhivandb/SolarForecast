@@ -101,9 +101,11 @@ const Sidebar = () => {
           )}
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-            <Typography variant="h6" color={colors.grey[300]} sx={{ m: "15px 0 5px 20px" }}>
-              SolarPower Plants
-            </Typography>
+            {!isCollapsed && (
+              <Typography variant="h6" color={colors.grey[300]} sx={{ m: "15px 0 5px 20px" }}>
+                Powerplants
+              </Typography>
+            )}
             <Item
               title="Plant 1"
               to="/SolarForecast/"
