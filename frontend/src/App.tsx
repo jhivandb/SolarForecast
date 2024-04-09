@@ -10,8 +10,8 @@ import Unauthenticated from "./scenes/Auth";
 // import Line from "./scenes/line";
 
 const authConfig = {
-  signInRedirectURL: "http://localhost:8080",
-  signOutRedirectURL: "http://localhost:8080",
+  signInRedirectURL: "https://jhivandebenoit.github.io/SolarForecast",
+  signOutRedirectURL: "https://jhivandebenoit.github.io/SolarForecast",
   // signInRedirectURL: "http://146.190.201.185:8080",
   // signOutRedirectURL: "http://146.190.201.185:8080",
   clientID: "xMf37DKirHxFhf9z1KzkGSGGOasa",
