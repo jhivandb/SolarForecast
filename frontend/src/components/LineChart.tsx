@@ -2,12 +2,14 @@ import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@mui/material";
 import { tokens } from "../theme";
 import { ChartData, InputDataPoint } from "../data/datautils";
+import { string } from "yup";
 
 type LineChartProps = {
   model: string;
   data: ChartData[];
+  xlegend: string;
 };
-const LineChart = ({ data }: LineChartProps) => {
+const LineChart = ({ data, xlegend }: LineChartProps) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -66,8 +68,8 @@ const LineChart = ({ data }: LineChartProps) => {
       axisTop={null}
       axisRight={null}
       axisBottom={{
-        tickValues: "every 4 hours",
-        format: "%m-%d %H",
+        tickValues: `every ${xlegend}`,
+        format: "%m-%d %H:%M",
         tickSize: 0,
         tickPadding: 5,
         tickRotation: 0,
