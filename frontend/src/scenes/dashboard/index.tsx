@@ -39,7 +39,9 @@ const Navbar = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const response = await fetch(`http://146.190.201.185:8002/solar/${solarHorizon}`);
+      const response = await fetch(
+        `https://3b87c7fa-a7ba-49c0-bdc3-12fe0116fce7-dev.e1-us-east-azure.choreoapis.dev/molw/default/v1.0/${solarHorizon}`
+      );
 
       if (!response.ok) {
         throw new Error("Couldn't fetch forecast");
@@ -52,7 +54,7 @@ const Navbar = () => {
     });
   }, [solarHorizon]);
   const handleForecast = async () => {
-    let query = `http://146.190.201.185:8000/rpredict?Horizon=${forecastHorizon}`;
+    let query = `https://3b87c7fa-a7ba-49c0-bdc3-12fe0116fce7-dev.e1-us-east-azure.choreoapis.dev/molw/forecast/v1.0?Horizon=${forecastHorizon}`;
     const response = await fetch(query);
     console.log(query);
     if (!response.ok) {
