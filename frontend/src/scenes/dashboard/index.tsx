@@ -8,7 +8,7 @@ const Navbar = () => {
   const [model, setModel] = useState<string>("daily");
   const [solarHorizon, setSolarHorizon] = useState(24);
   const [forecastHorizon, setForecastHorizon] = useState(12);
-  const [xlegend, setXLegend] = useState("hours");
+  const [xlegend, setXLegend] = useState("4 hours");
 
   const [solarData, setSolarData] = useState<ChartData[]>([]);
   const handleSolarHorizonChange = (event: SelectChangeEvent) => {
