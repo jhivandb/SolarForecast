@@ -9,7 +9,6 @@ import {
   Select,
   SelectChangeEvent,
   InputLabel,
-  LinearProgress,
   CircularProgress,
 } from "@mui/material";
 import { ChartData, parseAndConvertJsonData, parseForecast } from "../../data/datautils";
