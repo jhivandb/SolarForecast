@@ -1,20 +1,10 @@
 import { useEffect, useState } from "react";
 import LineChart from "../../components/LineChart";
-import {
-  Box,
-  Button,
-  FormControl,
-  Slider,
-  LinearProgress,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  InputLabel,
-} from "@mui/material";
-import { ChartData, convertRToNivo, parseAndConvertJsonData, parseForecast } from "../../data/datautils";
+import { Box, Button, FormControl, Slider, MenuItem, Select, SelectChangeEvent, InputLabel } from "@mui/material";
+import { ChartData, parseAndConvertJsonData, parseForecast } from "../../data/datautils";
 
 const Navbar = () => {
-  const [isLoaded, setIsLoaded] = useState<boolean>(true);
+  // const [isLoaded, setIsLoaded] = useState<boolean>(true);
   const [model, setModel] = useState<string>("daily");
   const [solarHorizon, setSolarHorizon] = useState(24);
   const [forecastHorizon, setForecastHorizon] = useState(12);
@@ -41,7 +31,7 @@ const Navbar = () => {
     }
     setModel(event.target.value);
   };
-  const handleForecastHorizonChange = (event: Event, newValue: number | number[]) => {
+  const handleForecastHorizonChange = (newValue: number | number[]) => {
     if (typeof newValue === "number") {
       setForecastHorizon(newValue);
     }
@@ -71,7 +61,6 @@ const Navbar = () => {
     const data = await response.json();
     setSolarData((prevData) => {
       const latestDate = prevData[0].data[prevData[0].data.length - 1].x;
-      const initialDate = prevData[0].data[0].x;
       const newData = parseForecast(data, new Date(latestDate));
       console.log([newData, ...prevData]);
       return [prevData[0], newData];
@@ -112,7 +101,9 @@ const Navbar = () => {
               getAriaValueText={() => {
                 return "Forecast Horizon";
               }}
-              onChange={handleForecastHorizonChange}
+              onChange={(_, value) => {
+                handleForecastHorizonChange(value);
+              }}
               color="secondary"
               valueLabelDisplay="auto"
               shiftStep={12}
@@ -126,11 +117,11 @@ const Navbar = () => {
             </Button>
           </Box>
         </Box>
-        {isLoaded ? (
-          <LineChart xlegend={xlegend} model={model} data={solarData} />
-        ) : (
-          <LinearProgress color="secondary" />
-        )}
+        {/* {isLoaded ? ( */}
+        <LineChart xlegend={xlegend} model={model} data={solarData} />
+        {/* ) : ( */}
+        {/* <LinearProgress color="secondary" /> */}
+        {/* )} */}
       </Box>
     </>
   );

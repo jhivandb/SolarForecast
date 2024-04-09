@@ -38,7 +38,7 @@ export const parseAndConvertJsonData = (dataArray: any) => {
     x: new Date(new Date(item.data_time)),
     y: parseInt(item.power),
   }));
-  convertedArray.sort((a, b) => a.x.getTime() - b.x.getTime());
+  convertedArray.sort((a: DataType, b: DataType) => a.x.getTime() - b.x.getTime());
   return [{ id: "Real", color: tokens("dark").greenAccent[500], data: convertedArray }];
 };
 
@@ -52,6 +52,6 @@ export const parseForecast = (forecastData: any, latestTime: Date) => {
       y: parseInt(item.WeightedForecast),
     };
   });
-  convertedArray.sort((a, b) => a.x.getTime() - b.x.getTime());
+  convertedArray.sort((a: DataType, b: DataType) => a.x.getTime() - b.x.getTime());
   return { id: "Forecast", color: tokens("dark").blueAccent[500], data: convertedArray };
 };

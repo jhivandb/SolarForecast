@@ -12,7 +12,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { WidthFull } from "@mui/icons-material";
 import { useAuthContext } from "@asgardeo/auth-react";
 
 const Topbar = () => {
@@ -59,7 +58,13 @@ const Topbar = () => {
           sx={{ width: "300px", display: "flex", justifyContent: "center", alignItems: "center" }}
         >
           <DialogContentText id="alert-dialog-description">
-            <Button variant="contained" color="secondary" onClick={signOut}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={() => {
+                signOut();
+              }}
+            >
               Signout
             </Button>
           </DialogContentText>

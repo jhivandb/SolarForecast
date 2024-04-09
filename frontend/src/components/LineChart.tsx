@@ -1,8 +1,7 @@
 import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@mui/material";
 import { tokens } from "../theme";
-import { ChartData, InputDataPoint } from "../data/datautils";
-import { string } from "yup";
+import { ChartData } from "../data/datautils";
 
 type LineChartProps = {
   model: string;

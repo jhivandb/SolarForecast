@@ -4,7 +4,7 @@ import Topbar from "./scenes/global/Topbar";
 import Dashboard from "./scenes/dashboard";
 import { ColorModeContext, useMode } from "./theme";
 import { Box, CssBaseline, ThemeProvider } from "@mui/material";
-import { AuthProvider, SecureApp, useAuthContext } from "@asgardeo/auth-react";
+import { AuthProvider, SecureApp } from "@asgardeo/auth-react";
 import { Route, Routes } from "react-router-dom";
 import Unauthenticated from "./scenes/Auth";
 // import Line from "./scenes/line";
