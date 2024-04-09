@@ -12,8 +12,8 @@ import Unauthenticated from "./scenes/Auth";
 const authConfig = {
   signInRedirectURL: "https://jhivandebenoit.github.io/SolarForecast",
   signOutRedirectURL: "https://jhivandebenoit.github.io/SolarForecast",
-  // signInRedirectURL: "http://146.190.201.185:8080",
-  // signOutRedirectURL: "http://146.190.201.185:8080",
+  // signInRedirectURL: "http://localhost:8080",
+  // signOutRedirectURL: "http://localhost:8080",
   clientID: "xMf37DKirHxFhf9z1KzkGSGGOasa",
   baseUrl: "https://api.asgardeo.io/t/testorg4321",
   scope: ["openid", "profile"],
@@ -32,7 +32,7 @@ function App() {
               <main className="content">
                 <Topbar />
                 <Routes>
-                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/SolarForecast" element={<Dashboard />} />
                   {/* <Route path="/forecast" element={<Line />} /> */}
                 </Routes>
               </main>

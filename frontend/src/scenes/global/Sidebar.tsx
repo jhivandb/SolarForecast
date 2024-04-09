@@ -38,7 +38,7 @@ const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [selected, setSelected] = useState("Dashboard");
+  const [selected, setSelected] = useState("Plant 1");
 
   return (
     <Box
@@ -105,8 +105,8 @@ const Sidebar = () => {
               SolarPower Plants
             </Typography>
             <Item
-              title="1 India"
-              to="/"
+              title="Plant 1"
+              to="/SolarForecast/"
               icon={<TimelineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
