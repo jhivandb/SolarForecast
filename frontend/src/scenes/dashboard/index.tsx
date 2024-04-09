@@ -69,7 +69,6 @@ const Navbar = () => {
     setIsLoaded(false);
     let query = `https://3b87c7fa-a7ba-49c0-bdc3-12fe0116fce7-dev.e1-us-east-azure.choreoapis.dev/molw/forecast/v1.0?Horizon=${forecastHorizon}`;
     const response = await fetch(query);
-    console.log(query);
     if (!response.ok) {
       throw new Error("Couldn't fetch forecast");
     }
