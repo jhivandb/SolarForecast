@@ -88,13 +88,6 @@ const Sidebar = () => {
           {!isCollapsed && (
             <Box mb="25px">
               <Box display="flex" justifyContent="center" alignItems="center">
-                {/* <img
-                  alt="profile-user"
-                  width="100px"
-                  height="100px"
-                  src="AccountCircleIcon"
-                  style={{ cursor: "pointer", borderRadius: "50%" }}
-                /> */}
                 <AccountCircleIcon fontSize="large" />
               </Box>
               <Box textAlign="center">
@@ -109,13 +102,12 @@ const Sidebar = () => {
           )}
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-            <Item title="Dashboard" to="/" icon={<HomeOutlinedIcon />} selected={selected} setSelected={setSelected} />
             <Typography variant="h6" color={colors.grey[300]} sx={{ m: "15px 0 5px 20px" }}>
-              Plants
+              SolarPower Plants
             </Typography>
             <Item
-              title="Line Chart"
-              to="/line"
+              title="1 India"
+              to="/"
               icon={<TimelineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

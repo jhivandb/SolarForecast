@@ -12,6 +12,8 @@ import Unauthenticated from "./scenes/Auth";
 const authConfig = {
   signInRedirectURL: "http://localhost:8080",
   signOutRedirectURL: "http://localhost:8080",
+  // signInRedirectURL: "http://146.190.201.185:8080",
+  // signOutRedirectURL: "http://146.190.201.185:8080",
   clientID: "xMf37DKirHxFhf9z1KzkGSGGOasa",
   baseUrl: "https://api.asgardeo.io/t/testorg4321",
   scope: ["openid", "profile"],

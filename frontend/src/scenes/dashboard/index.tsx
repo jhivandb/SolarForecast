@@ -35,6 +35,10 @@ const Navbar = () => {
       setSolarHorizon(12 * 4 * 4);
       setXLegend("2 days");
     }
+    if (horizon === "monthly") {
+      setSolarHorizon(12 * 2 * 365);
+      setXLegend("5 days");
+    }
     setModel(event.target.value);
   };
   const handleForecastHorizonChange = (event: Event, newValue: number | number[]) => {
@@ -94,6 +98,7 @@ const Navbar = () => {
                 <MenuItem value={"hourly"}>Hourly</MenuItem>
                 <MenuItem value={"daily"}>Daily</MenuItem>
                 <MenuItem value={"weekly"}>Weekly</MenuItem>
+                <MenuItem value={"monthly"}>Monthly</MenuItem>
               </Select>
             </FormControl>
           </Box>
