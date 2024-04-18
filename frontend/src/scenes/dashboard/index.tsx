@@ -110,7 +110,7 @@ const Navbar = () => {
             </InputLabel>
             <Slider
               aria-label="Forecast Horizon"
-              defaultValue={24}
+              defaultValue={12}
               getAriaValueText={() => {
                 return "Forecast Horizon";
               }}
