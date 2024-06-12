@@ -50,9 +50,7 @@ const Navbar = () => {
   useEffect(() => {
     // TODO LEGEND ISN"T WORKING
     const getData = async () => {
-      const response = await fetch(
-        `https://3b87c7fa-a7ba-49c0-bdc3-12fe0116fce7-dev.e1-us-east-azure.choreoapis.dev/molw/default/v1.0/${solarHorizon}`
-      );
+      const response = await fetch(`${import.meta.env.VITE_DATA_URL}/${solarHorizon}`);
 
       if (!response.ok) {
         throw new Error("Couldn't fetch forecast");
@@ -66,7 +64,7 @@ const Navbar = () => {
   }, [solarHorizon]);
   const handleForecast = async () => {
     setIsLoaded(false);
-    let query = `https://3b87c7fa-a7ba-49c0-bdc3-12fe0116fce7-dev.e1-us-east-azure.choreoapis.dev/molw/forecast/v1.0?Horizon=${forecastHorizon}`;
+    let query = `${import.meta.env.VITE_FORECAST_URL}?Horizon=${forecastHorizon}`;
     const response = await fetch(query);
     if (!response.ok) {
       throw new Error("Couldn't fetch forecast");

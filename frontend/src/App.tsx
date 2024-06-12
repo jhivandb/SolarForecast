@@ -10,10 +10,8 @@ import Unauthenticated from "./scenes/Auth";
 // import Line from "./scenes/line";
 
 const authConfig = {
-  signInRedirectURL: "https://jhivandebenoit.github.io/SolarForecast",
-  signOutRedirectURL: "https://jhivandebenoit.github.io/SolarForecast",
-  // signInRedirectURL: "http://localhost:8080",
-  // signOutRedirectURL: "http://localhost:8080",
+  signInRedirectURL: import.meta.env.VITE_signInRedirectURL,
+  signOutRedirectURL: import.meta.env.VITE_signOutRedirectURL,
   clientID: "xMf37DKirHxFhf9z1KzkGSGGOasa",
   baseUrl: "https://api.asgardeo.io/t/testorg4321",
   scope: ["openid", "profile"],

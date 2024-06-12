@@ -1,4 +1,3 @@
-import axios from "axios";
 import { tokens } from "../theme";
 
 type ThemeColor = string;
@@ -22,16 +21,6 @@ export interface NivoSeriesPoint {
   x: number;
   y: number;
 }
-
-export const callRForecast = async (horizon: number) => {
-  try {
-    const response = await axios.get(`http://146.190.201.185:8000/predict?Horizon=${horizon}`);
-    console.log(response);
-    return response.data;
-  } catch (error) {
-    console.error("Error Fetching Forecasts:", error);
-  }
-};
 
 export const parseAndConvertJsonData = (dataArray: any) => {
   const convertedArray = dataArray.map((item: any) => ({
