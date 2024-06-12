@@ -7,7 +7,6 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 # MongoDB connection string. Replace it with your connection string if you're using MongoDB Atlas or a different setup.
-mongo_uri = "mongodb+srv://jhivanb:25may2001@solarforecast.lh6oebd.mongodb.net/"
 client = MongoClient(mongo_uri)
 
 
