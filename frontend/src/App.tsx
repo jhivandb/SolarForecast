@@ -7,13 +7,25 @@ import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 import { AuthProvider, SecureApp } from "@asgardeo/auth-react";
 import { Route, Routes } from "react-router-dom";
 import Unauthenticated from "./scenes/Auth";
-// import Line from "./scenes/line";
 
+interface Config {
+  redirectUrl: string;
+  asgardeoClientId: string;
+  asgardeoBaseUrl: string;
+  forecastAPIUrl: string;
+  dataAPIUrl: string;
+}
+
+declare global {
+  interface Window {
+    config: Config;
+  }
+}
 const authConfig = {
-  signInRedirectURL: import.meta.env.VITE_signInRedirectURL,
-  signOutRedirectURL: import.meta.env.VITE_signOutRedirectURL,
-  clientID: "xMf37DKirHxFhf9z1KzkGSGGOasa",
-  baseUrl: "https://api.asgardeo.io/t/testorg4321",
+  signInRedirectURL: window.config.redirectUrl,
+  signOutRedirectURL: window.config.redirectUrl,
+  clientID: window.config.asgardeoClientId,
+  baseUrl: window.config.asgardeoBaseUrl,
   scope: ["openid", "profile"],
 };
 
@@ -31,7 +43,6 @@ function App() {
                 <Topbar />
                 <Routes>
                   <Route path="/SolarForecast" element={<Dashboard />} />
-                  {/* <Route path="/forecast" element={<Line />} /> */}
                 </Routes>
               </main>
             </Box>

@@ -50,7 +50,7 @@ const Navbar = () => {
   useEffect(() => {
     // TODO LEGEND ISN"T WORKING
     const getData = async () => {
-      const response = await fetch(`${import.meta.env.VITE_DATA_URL}/${solarHorizon}`);
+      const response = await fetch(`${window.config.dataAPIUrl}/${solarHorizon}`);
 
       if (!response.ok) {
         throw new Error("Couldn't fetch forecast");
@@ -64,7 +64,7 @@ const Navbar = () => {
   }, [solarHorizon]);
   const handleForecast = async () => {
     setIsLoaded(false);
-    let query = `${import.meta.env.VITE_FORECAST_URL}?Horizon=${forecastHorizon}`;
+    let query = `${window.config.forecastAPIUrl}?Horizon=${forecastHorizon}`;
     const response = await fetch(query);
     if (!response.ok) {
       throw new Error("Couldn't fetch forecast");
